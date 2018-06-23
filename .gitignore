@@ -3,3 +3,9 @@
 ################################################################################
 
 /.idea/.idea.SpeedDateUnity
+/Library
+/Temp
+/obj/Debug
+/SpeedDateUnity.sln
+/Assembly-CSharp.csproj
+/.collabignore

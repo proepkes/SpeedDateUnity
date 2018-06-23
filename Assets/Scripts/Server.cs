@@ -10,6 +10,12 @@ using UnityEngine;
 public class Server : MonoBehaviour 
 {
 	private readonly ISpeedDateStartable _server = new SpeedDateServer();
+	
+	public int Port = 60125;
+	
+	public bool EnableGuestLogin = true;
+
+	public string GuestPrefix = "Guest-";
 	// Use this for initialization
 	void Start ()
 	{
@@ -17,12 +23,12 @@ public class Server : MonoBehaviour
 		{
 			Debug.Log("Server started");
 		};
-		_server.Start(new DefaultConfigProvider(new NetworkConfig(IPAddress.Any, 60125), PluginsConfig.DefaultServerPlugins, new []
+		_server.Start(new DefaultConfigProvider(new NetworkConfig(IPAddress.Any, Port), PluginsConfig.DefaultServerPlugins, new []
 		{
 			new AuthConfig
 			{
-				GuestPrefix = "Guest-",
-				EnableGuestLogin = true
+				GuestPrefix = GuestPrefix,
+				EnableGuestLogin = EnableGuestLogin
 			}
 		}));
 	}

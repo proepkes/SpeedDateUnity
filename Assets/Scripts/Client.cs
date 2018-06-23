@@ -10,13 +10,16 @@ public class Client : MonoBehaviour
 {
 	private readonly SpeedDateClient _client = new SpeedDateClient();
 	
+	public string IpAddress = IPAddress.Loopback.ToString();
+
+	public int Port = 60125;
 	// Use this for initialization
 	void Start ()
 	{
 		StartCoroutine(CheckConnection());
 		
 		_client.Started += () => { Debug.Log("Connected to server"); };
-		_client.Start(new DefaultConfigProvider(new NetworkConfig(IPAddress.Loopback, 60125), PluginsConfig.DefaultPeerPlugins));
+		_client.Start(new DefaultConfigProvider(new NetworkConfig(IpAddress, Port), PluginsConfig.DefaultPeerPlugins));
 	}
 	
 	private IEnumerator CheckConnection()
