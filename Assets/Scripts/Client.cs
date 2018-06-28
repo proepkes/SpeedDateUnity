@@ -4,7 +4,7 @@ using SpeedDate.Client;
 using SpeedDate.ClientPlugins.Peer.Auth;
 using SpeedDate.Configuration;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class Client : MonoBehaviour 
 {
@@ -13,6 +13,7 @@ public class Client : MonoBehaviour
 	public string IpAddress = IPAddress.Loopback.ToString();
 
 	public int Port = 60125;
+	
 	// Use this for initialization
 	void Start ()
 	{
@@ -38,6 +39,7 @@ public class Client : MonoBehaviour
 		_client.GetPlugin<AuthPlugin>().LogInAsGuest(info =>
 		{
 			Debug.Log($"Logged in as {info.Username}");
+			UnityMainThreadDispatcher.Instance().Enqueue(() => SceneManager.LoadScene("Lobby"));
 		}, error =>
 		{
 			Debug.Log($"Login failed: {error}");
