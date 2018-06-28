@@ -16,9 +16,16 @@ public class Server : MonoBehaviour
 	public bool EnableGuestLogin = true;
 
 	public string GuestPrefix = "Guest-";
+
+	private void Awake()
+	{
+		DontDestroyOnLoad(this);
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
+		
 		_server.Started += () =>
 		{
 			Debug.Log("Server started");
