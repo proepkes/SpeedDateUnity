@@ -560,7 +560,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2108702798}
         m_MethodName: LoginAsGuest
         m_Mode: 1
         m_Arguments:
