@@ -1,0 +1,1 @@
+Resources taken from barebones masterserver: https://github.com/alvyxaz/barebones-masterserver
