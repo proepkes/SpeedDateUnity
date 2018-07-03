@@ -23,14 +23,14 @@ public class Client : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		_client.Started += () => { Debug.Log("Connected to server"); };
+		_client.Started += () => { Debug.Log("Client connected to server"); };
 		_client.Start(new DefaultConfigProvider(new NetworkConfig(IpAddress, Port), PluginsConfig.DefaultPeerPlugins));
 	}
 	
 
 	public void LoginAsGuest()
 	{
-		_client.GetPlugin<AuthPlugin>().LogInAsGuest(info =>
+		GetPlugin<AuthPlugin>().LogInAsGuest(info =>
 		{
 			Debug.Log($"Logged in as {info.Username}");
 			UnityMainThreadDispatcher.Instance().Enqueue(() => SceneManager.LoadScene("Lobby"));

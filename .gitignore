@@ -11,3 +11,8 @@
 /.collabignore
 /.vs/SpeedDateUnity/DesignTimeBuild
 /.vs/SpeedDateUnity/v15
+
+
+/Plugins/NGTools/
+/Barebones/
+/Build/

@@ -5,11 +5,12 @@ using SpeedDate.Configuration;
 using SpeedDate.Interfaces;
 using SpeedDate.Server;
 using SpeedDate.ServerPlugins.Authentication;
+using SpeedDate.ServerPlugins.Lobbies;
 using UnityEngine;
 
 public class Server : MonoBehaviour 
 {
-	private readonly ISpeedDateStartable _server = new SpeedDateServer();
+	private readonly SpeedDateServer _server = new SpeedDateServer();
 	
 	public int Port = 60125;
 	
@@ -38,5 +39,6 @@ public class Server : MonoBehaviour
 				EnableGuestLogin = EnableGuestLogin
 			}
 		}));
+		_server.GetPlugin<LobbiesPlugin>().AddFactory(new LobbyFactoryAnonymous("3 vs 3 auto", _server.GetPlugin<LobbiesPlugin>(), DemoLobbyFactories.ThreeVsThreeQueue));
 	}
 }
