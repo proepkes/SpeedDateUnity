@@ -350,16 +350,13 @@ public class LobbyUi : MonoBehaviour, ILobbyListener
     /// </summary>
     protected virtual void UpdateControls()
     {
-        UnityMainThreadDispatcher.Instance().Enqueue(() =>
-        {
-            var controlsView = GetComponentInChildren<LobbyPropControllersUi>();
+        var controlsView = GetComponentInChildren<LobbyPropControllersUi>();
 
-            if (controlsView != null)
-            {
-                controlsView.SetAllowEditing(CurrentUser == JoinedLobby.Data.GameMaster
-                                             && JoinedLobby.State == LobbyState.Preparations);
-            }
-        });
+        if (controlsView != null)
+        {
+            controlsView.SetAllowEditing(CurrentUser == JoinedLobby.Data.GameMaster
+                                         && JoinedLobby.State == LobbyState.Preparations);
+        }
     }
 
     /// <summary>
@@ -408,7 +405,7 @@ public class LobbyUi : MonoBehaviour, ILobbyListener
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             Users.Add(member.Username, CreateMemberView(member));
-            
+
             UpdateStartGameButton();
             UpdatePlayerCount();
         });
@@ -445,7 +442,7 @@ public class LobbyUi : MonoBehaviour, ILobbyListener
 
     public virtual void OnLobbyPropertyChanged(string property, string value)
     {
-        PropControllers.OnPropertyChange(property, value);
+        UnityMainThreadDispatcher.Instance().Enqueue(() => { PropControllers.OnPropertyChange(property, value); });
     }
 
     public virtual void OnMasterChanged(string masterUsername)
