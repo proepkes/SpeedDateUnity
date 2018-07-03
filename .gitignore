@@ -12,7 +12,6 @@
 /.vs/SpeedDateUnity/DesignTimeBuild
 /.vs/SpeedDateUnity/v15
 
-
-/Assets/Plugins/NGTools/
-/Assets/Barebones/
 /Build/
+NGTools
+/Assets/Plugins/NGTools.meta
