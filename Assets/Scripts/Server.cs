@@ -39,6 +39,7 @@ public class Server : MonoBehaviour
 				EnableGuestLogin = EnableGuestLogin
 			}
 		}));
+		_server.GetPlugin<LobbiesPlugin>().AddFactory(new LobbyFactoryAnonymous("2 vs 2 vs 4", _server.GetPlugin<LobbiesPlugin>(), DemoLobbyFactories.TwoVsTwoVsFour));
 		_server.GetPlugin<LobbiesPlugin>().AddFactory(new LobbyFactoryAnonymous("3 vs 3 auto", _server.GetPlugin<LobbiesPlugin>(), DemoLobbyFactories.ThreeVsThreeQueue));
 	}
 }

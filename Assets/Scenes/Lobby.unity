@@ -11870,6 +11870,8 @@ MonoBehaviour:
   Name: {fileID: 1045128688}
   LobbyUi: {fileID: 591456436}
   LobbyFactories:
+  - Key: 2 vs 2 vs 4
+    Value: 2 VS 2 VS 4
   - Key: 3 vs 3 auto
     Value: 3 VS 3 AUTO
   Maps:
