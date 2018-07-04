@@ -292,13 +292,13 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 201349535}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2108702798}
-        m_MethodName: LoginAsGuest
+        m_MethodName: OnLoginClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -802,7 +802,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2108702798}
-        m_MethodName: LoginAsGuest
+        m_MethodName: OnLoginAsGuestClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

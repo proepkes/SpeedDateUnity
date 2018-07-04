@@ -26,9 +26,13 @@ public class Client : MonoBehaviour
 		_client.Started += () => { Debug.Log("Client connected to server"); };
 		_client.Start(new DefaultConfigProvider(new NetworkConfig(IpAddress, Port), PluginsConfig.DefaultPeerPlugins));
 	}
-	
 
-	public void LoginAsGuest()
+	public void OnLoginClick()
+	{
+		SceneManager.LoadScene("LoginDialog", LoadSceneMode.Additive);
+	}
+
+	public void OnLoginAsGuestClick()
 	{
 		GetPlugin<AuthPlugin>().LogInAsGuest(info =>
 		{

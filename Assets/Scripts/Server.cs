@@ -5,6 +5,7 @@ using SpeedDate.Configuration;
 using SpeedDate.Interfaces;
 using SpeedDate.Server;
 using SpeedDate.ServerPlugins.Authentication;
+using SpeedDate.ServerPlugins.Database.CockroachDb;
 using SpeedDate.ServerPlugins.Lobbies;
 using UnityEngine;
 
@@ -25,19 +26,18 @@ public class Server : MonoBehaviour
 
 	// Use this for initialization
 	void Start ()
-	{
-		
+	{		
 		_server.Started += () =>
 		{
 			Debug.Log("Server started");
 		};
-		_server.Start(new DefaultConfigProvider(new NetworkConfig(IPAddress.Any, Port), PluginsConfig.DefaultServerPlugins, new []
+		_server.Start(new DefaultConfigProvider(new NetworkConfig(IPAddress.Any, Port), PluginsConfig.DefaultServerPlugins, new IConfig[]
 		{
 			new AuthConfig
 			{
 				GuestPrefix = GuestPrefix,
 				EnableGuestLogin = EnableGuestLogin
-			}
+			},
 		}));
 		_server.GetPlugin<LobbiesPlugin>().AddFactory(new LobbyFactoryAnonymous("2 vs 2 vs 4", _server.GetPlugin<LobbiesPlugin>(), DemoLobbyFactories.TwoVsTwoVsFour));
 		_server.GetPlugin<LobbiesPlugin>().AddFactory(new LobbyFactoryAnonymous("3 vs 3 auto", _server.GetPlugin<LobbiesPlugin>(), DemoLobbyFactories.ThreeVsThreeQueue));
