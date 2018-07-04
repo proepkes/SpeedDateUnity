@@ -36,7 +36,9 @@ public class Server : MonoBehaviour
 			new AuthConfig
 			{
 				GuestPrefix = GuestPrefix,
-				EnableGuestLogin = EnableGuestLogin
+				EnableGuestLogin = EnableGuestLogin,
+				UsernameMaxChars = 10,
+				UsernameMinChars =  2
 			},
 		}));
 		_server.GetPlugin<LobbiesPlugin>().AddFactory(new LobbyFactoryAnonymous("2 vs 2 vs 4", _server.GetPlugin<LobbiesPlugin>(), DemoLobbyFactories.TwoVsTwoVsFour));

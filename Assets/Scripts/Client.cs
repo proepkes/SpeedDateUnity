@@ -44,6 +44,11 @@ public class Client : MonoBehaviour
 		});
 	}
 
+	public void OnRegisterClick()
+	{
+		SceneManager.LoadScene("RegisterDialog", LoadSceneMode.Additive);
+	}
+
 	public T GetPlugin<T>() where T : class, IPlugin
 	{
 		return _client.GetPlugin<T>();
