@@ -9,8 +9,10 @@ using SpeedDate.ServerPlugins.Database.CockroachDb;
 using SpeedDate.ServerPlugins.Lobbies;
 using UnityEngine;
 
-public class Server : MonoBehaviour 
+public class Server : MonoBehaviour
 {
+	public static Server Instance;
+	
 	private readonly SpeedDateServer _server = new SpeedDateServer();
 	
 	public int Port = 60125;
@@ -21,7 +23,15 @@ public class Server : MonoBehaviour
 
 	private void Awake()
 	{
-		DontDestroyOnLoad(this);
+		if (Instance == null)
+		{
+			Instance = this;
+			DontDestroyOnLoad(this);
+		}
+		else
+		{
+			Destroy(this.gameObject);
+		}
 	}
 
 	// Use this for initialization

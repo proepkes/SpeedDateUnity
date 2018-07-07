@@ -10,8 +10,6 @@ namespace Barebones.MasterServer
     /// </summary>
     public class LoginUi : MonoBehaviour
     {
-        private Client client;
-        
         public InputField Username;
         public InputField Password;
 
@@ -20,8 +18,6 @@ namespace Barebones.MasterServer
         // Use this for initialization
         private void Start()
         {
-            client = FindObjectOfType<Client>();
-            
             RestoreRememberedValues();
         }
 
@@ -75,7 +71,7 @@ namespace Barebones.MasterServer
 
         public virtual void OnLoginClick()
         {
-            if (client.GetPlugin<AuthPlugin>().IsLoggedIn)
+            if (Client.Instance.GetPlugin<AuthPlugin>().IsLoggedIn)
             {
                 Debug.Log("You're already logged in");
                 return;
@@ -87,18 +83,19 @@ namespace Barebones.MasterServer
 
             HandleRemembering();
 
-            client.GetPlugin<AuthPlugin>().LogIn(Username.text, Password.text, info =>
+            Client.Instance.GetPlugin<AuthPlugin>().LogIn(Username.text, Password.text, info =>
             {
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
                 {
-                    gameObject.SetActive(false);
+                    Debug.Log($"Logged in as {info.Username}");
+                    SceneManager.LoadScene("Lobby");
                 });
             }, Debug.Log);
         }
 
         public void OnCloseClick()
         {
-            SceneManager.UnloadSceneAsync("LoginDialog");
+            gameObject.SetActive(false);
         }
     }
 }

@@ -9,8 +9,10 @@ using SpeedDate.Plugin.Interfaces;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Spawner : MonoBehaviour 
+public class Spawner : MonoBehaviour
 {
+	public static Spawner Instance;
+	
 	private readonly SpeedDateClient _client = new SpeedDateClient();
 	
 	public string IpAddress = IPAddress.Loopback.ToString();
@@ -19,7 +21,15 @@ public class Spawner : MonoBehaviour
 	
 	private void Awake()
 	{
-		DontDestroyOnLoad(this);
+		if (Instance == null)
+		{
+			Instance = this;
+			DontDestroyOnLoad(this);
+		}
+		else
+		{
+			Destroy(this.gameObject);
+		}
 	}
 	
 	// Use this for initialization

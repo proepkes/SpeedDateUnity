@@ -7,8 +7,10 @@ using SpeedDate.Plugin.Interfaces;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Client : MonoBehaviour 
+public class Client : MonoBehaviour
 {
+	public static Client Instance;
+	
 	private readonly SpeedDateClient _client = new SpeedDateClient();
 	
 	public string IpAddress = IPAddress.Loopback.ToString();
@@ -17,38 +19,23 @@ public class Client : MonoBehaviour
 	
 	private void Awake()
 	{
-		DontDestroyOnLoad(this);
+		if (Instance == null)
+		{
+			Instance = this;
+			DontDestroyOnLoad(this);
+		}
+		else
+		{
+			Destroy(this.gameObject);
+		}
 	}
 	
-	// Use this for initialization
 	void Start ()
 	{
 		_client.Started += () => { Debug.Log("Client connected to server"); };
 		_client.Start(new DefaultConfigProvider(new NetworkConfig(IpAddress, Port), PluginsConfig.DefaultPeerPlugins));
 	}
-
-	public void OnLoginClick()
-	{
-		SceneManager.LoadScene("LoginDialog", LoadSceneMode.Additive);
-	}
-
-	public void OnLoginAsGuestClick()
-	{
-		GetPlugin<AuthPlugin>().LogInAsGuest(info =>
-		{
-			Debug.Log($"Logged in as {info.Username}");
-			UnityMainThreadDispatcher.Instance().Enqueue(() => SceneManager.LoadScene("Lobby"));
-		}, error =>
-		{
-			Debug.Log($"Login failed: {error}");
-		});
-	}
-
-	public void OnRegisterClick()
-	{
-		SceneManager.LoadScene("RegisterDialog", LoadSceneMode.Additive);
-	}
-
+	
 	public T GetPlugin<T>() where T : class, IPlugin
 	{
 		return _client.GetPlugin<T>();

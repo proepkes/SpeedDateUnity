@@ -12,8 +12,6 @@ namespace Barebones.MasterServer
     /// </summary>
     public class RegisterUi : MonoBehaviour
     {
-        private Client client;
-        
         public InputField Username;
         public InputField Email;
         public InputField Password;
@@ -28,11 +26,6 @@ namespace Barebones.MasterServer
             Password = Password ?? transform.Find("Password").GetComponent<InputField>();
             RepeatPassword = RepeatPassword ?? transform.Find("RepeatPassword").GetComponent<InputField>();
             Username = Username ?? transform.Find("Username").GetComponent<InputField>();
-        }
-
-        private void Start()
-        {
-            client = FindObjectOfType<Client>();
         }
 
         public bool ValidateInput()
@@ -84,7 +77,7 @@ namespace Barebones.MasterServer
                 {"email", Email.text}
             };
 
-            client.GetPlugin<AuthPlugin>().Register(data, () =>
+            Client.Instance.GetPlugin<AuthPlugin>().Register(data, () =>
             {
                 UnityMainThreadDispatcher.Instance().Enqueue(OnSuccess);
             }, Debug.Log);
@@ -98,7 +91,7 @@ namespace Barebones.MasterServer
 
         public void OnCloseClick()
         {
-            SceneManager.UnloadSceneAsync("RegisterDialog");
+            gameObject.SetActive(false);
         }
     }
 }

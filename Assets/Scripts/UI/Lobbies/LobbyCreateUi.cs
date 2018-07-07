@@ -12,8 +12,6 @@ using UnityEngine.UI;
 /// </summary>
 public class LobbyCreateUi : MonoBehaviour
 {
-    private Client client;
-
     public Dropdown TypeDropdown;
     public Dropdown MapDropdown;
     public InputField Name;
@@ -41,8 +39,6 @@ public class LobbyCreateUi : MonoBehaviour
 
     protected virtual void Start()
     {
-        client = FindObjectOfType<Client>();
-        
         TypeDropdown.ClearOptions();
         TypeDropdown.AddOptions(LobbyFactories.Select(t => t.Value).ToList());
 
@@ -64,7 +60,7 @@ public class LobbyCreateUi : MonoBehaviour
 
         var factory = GetSelectedFactory();
 
-        client.GetPlugin<LobbyPlugin>().CreateAndJoin(factory, properties, (lobby) =>
+        Client.Instance.GetPlugin<LobbyPlugin>().CreateAndJoin(factory, properties, (lobby) =>
         {
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
