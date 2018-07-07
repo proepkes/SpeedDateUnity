@@ -85,9 +85,9 @@ namespace Barebones.MasterServer
 
             Client.Instance.GetPlugin<AuthPlugin>().LogIn(Username.text, Password.text, info =>
             {
+                Debug.Log($"Logged in as {info.Username}");
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
                 {
-                    Debug.Log($"Logged in as {info.Username}");
                     SceneManager.LoadScene("Lobby");
                 });
             }, Debug.Log);
