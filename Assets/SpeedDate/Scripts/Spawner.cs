@@ -1,34 +1,32 @@
-﻿using System.Collections;
-using System.Net;
+﻿using System.Net;
 using SpeedDate.Client;
-using SpeedDate.ClientPlugins.Peer.Auth;
 using SpeedDate.ClientPlugins.Spawner;
 using SpeedDate.Configuration;
 using SpeedDate.Packets.Spawner;
 using SpeedDate.Plugin.Interfaces;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
-	public static Spawner Instance;
+	private static Spawner _instance;
 	
 	private readonly SpeedDateClient _client = new SpeedDateClient();
 	
-	public string IpAddress = IPAddress.Loopback.ToString();
-
-	public int Port = 60125;
+	public string MasterIpAddress = IPAddress.Loopback.ToString();
+	public int MasterPort = 60125;
+	public string PathToGameServerExecutable = @"C:\gameserver.exe";
+	public string MachineIpAddress = IPAddress.Loopback.ToString();
 	
 	private void Awake()
 	{
-		if (Instance == null)
+		if (_instance == null)
 		{
-			Instance = this;
+			_instance = this;
 			DontDestroyOnLoad(this);
 		}
 		else
 		{
-			Destroy(this.gameObject);
+			Destroy(gameObject);
 		}
 	}
 	
@@ -44,7 +42,15 @@ public class Spawner : MonoBehaviour
 				Debug.Log("Spawner registered to server");
 			}, Debug.Log);
 		};
-		_client.Start(new DefaultConfigProvider(new NetworkConfig(IpAddress, Port), PluginsConfig.DefaultSpawnerPlugins));
+		_client.Start(new DefaultConfigProvider(new NetworkConfig(MasterIpAddress, MasterPort), PluginsConfig.DefaultSpawnerPlugins, new IConfig[]
+		{
+			new SpawnerConfig
+			{
+				SpawnInBatchmode = true,
+				ExecutablePath = PathToGameServerExecutable,
+				MachineIp = MachineIpAddress
+			}, 
+		}));
 	}
 	
 	public T GetPlugin<T>() where T : class, IPlugin
