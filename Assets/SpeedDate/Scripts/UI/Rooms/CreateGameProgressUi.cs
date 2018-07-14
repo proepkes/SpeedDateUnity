@@ -139,7 +139,7 @@ namespace Barebones.MasterServer
                 ? data[OptionKeys.RoomPassword]
                 : "";
 
-            client.GetPlugin<RoomPlugin>().GetAccess(roomId, OnRoomAccessReceived, password, data, Debug.Log);
+            client.GetPlugin<RoomPlugin>().GetAccess(roomId, password, data, OnRoomAccessReceived, Debug.Log);
         }
 
         public void OnRoomAccessReceived(RoomAccessPacket access)

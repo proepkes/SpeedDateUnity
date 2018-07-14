@@ -30,7 +30,6 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    // Use this for initialization
     private void Start()
     {
         _client.Started += () =>
