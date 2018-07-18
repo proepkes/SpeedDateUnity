@@ -31,9 +31,9 @@ public class LobbyPropControllersUi : MonoBehaviour
     /// Uses the data to generate property controllers
     /// </summary>
     /// <param name="propData"></param>
-    public void Setup(List<LobbyPropertyData> propData)
+    public void Setup(Dictionary<string, LobbyPropertyData> propData)
     {
-        Properties.Generate(propData, (data, o) =>
+        Properties.Generate(propData.Values , (data, o) =>
         {
             var view = o.GetComponent<LobbyPropController>();
             view.Setup(data);

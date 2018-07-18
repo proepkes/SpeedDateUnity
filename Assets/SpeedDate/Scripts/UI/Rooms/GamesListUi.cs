@@ -87,9 +87,9 @@ namespace Barebones.MasterServer
 
             client.GetPlugin<RoomPlugin>().GetAccess(
                 selected.GameId, 
-                OnPassReceived,
                 selected.IsPasswordProtected ? "password" : string.Empty, 
                 new Dictionary<string, string>(), 
+                OnPassReceived,
                 Debug.Log);
         }
 

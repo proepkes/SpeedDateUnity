@@ -20,7 +20,6 @@ public class LobbyUi : MonoBehaviour, ILobbyListener
     public GameObject LoadingScreen;
     public Text GameStatus;
     public Text PlayerCount;
-    public Text LobbyType;
 
     public LobbyPropControllersUi PropControllers;
 
@@ -86,7 +85,6 @@ public class LobbyUi : MonoBehaviour, ILobbyListener
             CurrentUser = lobby.Data.CurrentUserUsername;
 
             LobbyName.text = lobby.LobbyName;
-            LobbyType.text = lobby.Data.LobbyType;
 
             Teams.Clear();
             Users.Clear();
